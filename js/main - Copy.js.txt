@@ -1,0 +1,309 @@
+/**
+ * main.js — form SSSD
+ * Flow: isi form → modal konfirmasi → kirim API → generate PDF di browser → download
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── refs ──────────────────────────────────────────────────
+  const form          = document.getElementById('form-sssd');
+  const modal         = document.getElementById('modal');
+  const btnSubmit     = document.getElementById('btn-submit');
+  const btnBack       = document.getElementById('btn-back');
+  const btnConfirm    = document.getElementById('btn-confirm');
+  const btnConfirmLbl = document.getElementById('btn-confirm-label');
+  const btnConfirmLdr = document.getElementById('btn-confirm-loading');
+  const modalClose    = document.getElementById('modal-close');
+  const summaryGrid   = document.getElementById('summary-grid');
+  const successScreen = document.getElementById('success-screen');
+  const successNomor  = document.getElementById('success-nomor');
+  const btnRedownload = document.getElementById('btn-redownload');
+  const pill1 = document.getElementById('pill-1');
+  const pill2 = document.getElementById('pill-2');
+  const pill3 = document.getElementById('pill-3');
+
+  let lastData = null;
+  let lastNomor = null;
+
+  // ── helpers ──────────────────────────────────────────────
+  const getVal = id => (document.getElementById(id)?.value ?? '').trim();
+  const getRadio = name => document.querySelector(`input[name="${name}"]:checked`)?.value ?? '';
+
+  function nomorFormulir() {
+    const y = new Date().getFullYear();
+    const r = Math.floor(Math.random() * 9000) + 1000;
+    return `SSSD/${y}/${r}`;
+  }
+
+  function collectData() {
+    return {
+      nama_lengkap:      getVal('nama_lengkap'),
+      nik:               getVal('nik'),
+      no_kk:             getVal('no_kk'),
+      tempat_lahir:      getVal('tempat_lahir'),
+      tanggal_lahir:     getVal('tanggal_lahir'),
+      jenis_kelamin:     getRadio('jenis_kelamin'),
+      agama:             getVal('agama'),
+      alamat:            getVal('alamat'),
+      rt:                getVal('rt'),
+      rw:                getVal('rw'),
+      dusun:             getVal('dusun'),
+      telepon:           getVal('telepon'),
+      email:             getVal('email'),
+      jenjang:           getVal('jenjang'),
+      jurusan:           getVal('jurusan'),
+      nama_sekolah:      getVal('nama_sekolah'),
+      kota_sekolah:      getVal('kota_sekolah'),
+      tahun_lulus:       getVal('tahun_lulus'),
+      no_ijazah:         getVal('no_ijazah'),
+      prodi:             getVal('prodi'),
+      perguruan_tinggi:  getVal('perguruan_tinggi'),
+      alasan_prodi:      getVal('alasan_prodi'),
+      nama_ayah:         getVal('nama_ayah'),
+      pekerjaan_ayah:    getVal('pekerjaan_ayah'),
+      nama_ibu:          getVal('nama_ibu'),
+      pekerjaan_ibu:     getVal('pekerjaan_ibu'),
+      penghasilan:       getVal('penghasilan'),
+      jml_tanggungan:    getVal('jml_tanggungan'),
+      foto: preview.src || ''
+    };
+  }
+
+
+  // photo upload preview and button trigger
+  const fileInput = document.getElementById('pasfoto');
+  const preview = document.getElementById('pasfoto-preview');
+  const placeholder = document.getElementById('upload-placeholder');
+  const photoBox = document.getElementById('photo-box');
+
+  // Klik kotak = buka file input atau tampilkan konfirmasi
+  photoBox.addEventListener('click', () => {
+    const hasPhoto = preview.src && !preview.classList.contains('hidden');
+    
+    if (hasPhoto) {
+      // Foto sudah ada: tampilkan konfirmasi
+      if (confirm('Foto sudah ada. Ganti dengan foto baru?')) {
+        fileInput.click();
+      }
+    } else {
+      // Foto belum ada: langsung buka file explorer
+      fileInput.click();
+    }
+  });
+
+  // Preview foto
+  fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        preview.src = event.target.result;
+        preview.classList.remove('hidden');
+        placeholder.style.display = 'none';
+      }
+      reader.readAsDataURL(file);
+    } else {
+      preview.classList.add('hidden');
+      placeholder.style.display = 'block';
+    }
+  });
+
+
+  // ── validation ────────────────────────────────────────────
+  const rules = [
+    { id: 'nama_lengkap',     msg: 'Nama lengkap wajib diisi' },
+    { id: 'nik',              msg: 'NIK wajib diisi (16 digit)', fn: v => /^\d{16}$/.test(v) || 'NIK harus 16 digit angka' },
+    { id: 'no_kk',            msg: 'Nomor KK wajib diisi', fn: v => /^\d{16}$/.test(v) || 'Nomor KK harus 16 digit angka' },
+    { id: 'tempat_lahir',     msg: 'Tempat lahir wajib diisi' },
+    { id: 'tanggal_lahir',    msg: 'Tanggal lahir wajib diisi' },
+    { name: 'jenis_kelamin',  msg: 'Jenis kelamin wajib dipilih', radio: true },
+    { id: 'agama',            msg: 'Agama wajib dipilih' },
+    { id: 'alamat',           msg: 'Alamat wajib diisi' },
+    { id: 'rt',               msg: 'RT wajib diisi' },
+    { id: 'rw',               msg: 'RW wajib diisi' },
+    { id: 'telepon',          msg: 'Nomor telepon wajib diisi' },
+    { id: 'jenjang',          msg: 'Jenjang pendidikan wajib dipilih' },
+    { id: 'jurusan',          msg: 'Jurusan wajib diisi' },
+    { id: 'nama_sekolah',     msg: 'Nama sekolah wajib diisi' },
+    { id: 'kota_sekolah',     msg: 'Kota sekolah wajib diisi' },
+    { id: 'tahun_lulus',      msg: 'Tahun lulus wajib diisi', fn: v => (/^\d{4}$/.test(v) && +v >= 1990 && +v <= new Date().getFullYear()) || 'Tahun lulus tidak valid' },
+    { id: 'prodi',            msg: 'Program studi wajib dipilih' },
+    { id: 'perguruan_tinggi', msg: 'Perguruan tinggi wajib diisi' },
+    { id: 'alasan_prodi',     msg: 'Alasan pilihan prodi wajib diisi' },
+    { id: 'nama_ayah',        msg: 'Nama ayah/wali wajib diisi' },
+    { id: 'nama_ibu',         msg: 'Nama ibu wajib diisi' },
+    { id: 'penghasilan',      msg: 'Penghasilan keluarga wajib dipilih' },
+    { id: 'jml_tanggungan',   msg: 'Jumlah tanggungan wajib diisi' },
+  ];
+
+  function validate() {
+    let errors = [];
+    let firstEl = null;
+
+    rules.forEach(rule => {
+      if (rule.radio) {
+        const val = getRadio(rule.name);
+        if (!val) {
+          errors.push(rule.msg);
+        }
+        return;
+      }
+      const el = document.getElementById(rule.id);
+      if (!el) return;
+      const val = el.value.trim();
+      let errMsg = null;
+
+      if (!val) {
+        errMsg = rule.msg;
+      } else if (rule.fn) {
+        const res = rule.fn(val);
+        if (res !== true) errMsg = res;
+      }
+
+      if (errMsg) {
+        el.classList.add('error');
+        errors.push(errMsg);
+        if (!firstEl) firstEl = el;
+      } else {
+        el.classList.remove('error');
+      }
+    });
+
+    if (firstEl) {
+      firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstEl.focus();
+    }
+    return errors;
+  }
+
+  // live clear error
+  form.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+    el.addEventListener('change', () => el.classList.remove('error'));
+  });
+
+  // ── auto-format RT/RW ────────────────────────────────────
+  ['rt', 'rw'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => { el.value = el.value.replace(/\D/g, '').slice(0, 3); });
+    el.addEventListener('blur',  () => { if (el.value) el.value = el.value.padStart(3, '0'); });
+  });
+
+  // ── auto-format NIK/KK ──────────────────────────────────
+  ['nik', 'no_kk'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => { el.value = el.value.replace(/\D/g, '').slice(0, 16); });
+  });
+
+  // ── open modal ───────────────────────────────────────────
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const errors = validate();
+    if (errors.length) return;
+
+    lastData = collectData();
+    renderSummary(lastData);
+    openModal();
+    pill1.classList.remove('pill--active');
+    pill1.classList.add('pill--done');
+    pill2.classList.add('pill--active');
+  });
+
+  // ── summary render ───────────────────────────────────────
+  function renderSummary(d) {
+    const photoPreview = preview.src && !preview.classList.contains('hidden') 
+      ? `<img src="${preview.src}" alt="Foto" style="max-width: 120px; max-height: 150px; object-fit: cover; border-radius: 4px;">`
+      : '—';
+    
+    const items = [
+      { label: 'Foto',          value: photoPreview,       wide: true },
+      { label: 'Nama',          value: d.nama_lengkap,     wide: true },
+      { label: 'NIK',           value: d.nik },
+      { label: 'No. KK',        value: d.no_kk },
+      { label: 'Tempat Lahir',  value: d.tempat_lahir },
+      { label: 'Tgl Lahir',     value: formatDate(d.tanggal_lahir) },
+      { label: 'Jenis Kelamin', value: d.jenis_kelamin },
+      { label: 'Alamat',        value: `${d.alamat}, RT ${d.rt}/RW ${d.rw}`, wide: true },
+      { label: 'Telepon',       value: d.telepon },
+      { label: 'Pendidikan',    value: `${d.jenjang} – ${d.jurusan}` },
+      { label: 'Sekolah',       value: `${d.nama_sekolah}, ${d.kota_sekolah}` },
+      { label: 'Program Studi', value: d.prodi,            wide: true },
+      { label: 'Perguruan Tinggi', value: d.perguruan_tinggi },
+      
+    ];
+
+    summaryGrid.innerHTML = items.map(item => `
+      <div class="summary-item ${item.wide ? 'summary-item--wide' : ''}">
+        <div class="s-label">${item.label}</div>
+        <div class="s-value">${item.value || '—'}</div>
+      </div>
+    `).join('');
+  }
+
+  // ── confirm: save + generate PDF ─────────────────────────
+  btnConfirm.addEventListener('click', async () => {
+    if (!lastData) return;
+
+    // loading state
+    btnConfirmLbl.style.display = 'none';
+    btnConfirmLdr.style.display = '';
+    btnConfirm.disabled = true;
+
+    lastNomor = nomorFormulir();
+
+    try {
+      // 1. kirim data ke server
+      await fetch('api/simpan.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...lastData, nomor_formulir: lastNomor }),
+      });
+    } catch (_) {
+      // gagal simpan tidak blokir PDF — PDF tetap dibuat
+    }
+
+    // 2. generate PDF di browser
+    lastData.foto = preview.src || '';
+    generatePDF(lastData, lastNomor);
+
+    // 3. update UI
+    closeModal();
+    document.getElementById('form-sssd').style.display = 'none';
+    document.querySelector('.page-intro').style.display = 'none';
+    successScreen.style.display = '';
+    successNomor.textContent = `Nomor Formulir: ${lastNomor}`;
+
+    pill2.classList.remove('pill--active');
+    pill2.classList.add('pill--done');
+    pill3.classList.add('pill--active');
+  });
+
+
+  // re-download
+  btnRedownload?.addEventListener('click', () => {
+    if (lastData && lastNomor) generatePDF(lastData, lastNomor);
+  });
+
+  // ── modal helpers ─────────────────────────────────────────
+  function openModal()  { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); }
+  function closeModal() { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); }
+
+  btnBack.addEventListener('click', () => {
+    closeModal();
+    pill2.classList.remove('pill--active');
+    pill1.classList.remove('pill--done');
+    pill1.classList.add('pill--active');
+  });
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  // ── util ─────────────────────────────────────────────────
+  function formatDate(str) {
+    if (!str) return '';
+    const d = new Date(str + 'T00:00:00');
+    return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+});

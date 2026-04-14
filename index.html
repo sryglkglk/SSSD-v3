@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Satu Sarjana Satu Desa – Desa Gunungmenyan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <div class="logo-circle">GY</div>
+      <div>
+        <strong>Desa Gunungmenyan</strong>
+        <span>Kec. Pamijahan · Kab. Bogor</span>
+      </div>
+    </div>
+    <div class="header-badge">Program 2025–2029</div>
+  </div>
+</header>
+
+<div class="page-intro">
+  <h1>Pendaftaran Satu Sarjana Satu Desa</h1>
+  <p>Isi formulir dengan lengkap dan benar...</p>
+</div>
+
+<div class="form-card">
+  <form id="form-sssd">
+
+    <!-- FORM KAMU (TIDAK DIUBAH SAMA SEKALI) -->
+<!-- ═══ FORM ═══ -->
+<div class="form-card">
+  <form id="form-sssd">
+
+    <!-- ── A. DATA DIRI ── -->
+    <fieldset class="form-section" id="sec-a">
+      <legend class="section-legend">
+        <span class="legend-letter">A</span>
+        Data Diri
+      </legend>
+
+      <div class="field-grid">
+        <div class="field field--span2">
+          <label for="nama_lengkap">Nama Lengkap <em>sesuai KTP</em> <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Tanpa singkatan" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="nik">NIK <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="nik" name="nik" placeholder="16 digit" maxlength="16" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="no_kk">Nomor KK <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="no_kk" name="no_kk" placeholder="16 digit" maxlength="16" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="tempat_lahir">Tempat Lahir <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="tempat_lahir" name="tempat_lahir" placeholder="Kota / Kabupaten" required>
+        </div>
+        <div class="field">
+          <label for="tanggal_lahir">Tanggal Lahir <abbr title="Wajib">*</abbr></label>
+          <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+        </div>
+        <div class="field">
+          <label>Jenis Kelamin <abbr title="Wajib">*</abbr></label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="jenis_kelamin" value="Laki-laki" required><span>Laki-laki</span></label>
+            <label class="radio-opt"><input type="radio" name="jenis_kelamin" value="Perempuan"><span>Perempuan</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="agama">Agama <abbr title="Wajib">*</abbr></label>
+          <select id="agama" name="agama" required>
+            <option value="">— Pilih —</option>
+            <option>Islam</option><option>Kristen</option><option>Katolik</option>
+            <option>Hindu</option><option>Buddha</option><option>Konghucu</option>
+          </select>
+        </div>
+        <div class="field field--span2">
+          <label for="alamat">Alamat Lengkap <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="alamat" name="alamat" placeholder="Jalan / kampung / no. rumah" required>
+        </div>
+        <div class="field field--w1">
+          <label for="rt">RT <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="rt" name="rt" placeholder="001" maxlength="3" inputmode="numeric" required>
+        </div>
+        <div class="field field--w1">
+          <label for="rw">RW <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="rw" name="rw" placeholder="003" maxlength="3" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="dusun">Dusun / Kampung</label>
+          <input type="text" id="dusun" name="dusun" placeholder="">
+        </div>
+        <div class="field">
+          <label for="telepon">No. WhatsApp <abbr title="Wajib">*</abbr></label>
+          <input type="tel" id="telepon" name="telepon" placeholder="08xxxxxxxxxx" inputmode="tel" required>
+        </div>
+        <div class="field">
+          <label for="email">Email Aktif</label>
+          <input type="email" id="email" name="email" placeholder="opsional">
+        </div>
+      </div>
+      <div class="field field--span2">
+        <label>
+          Pasfoto <em>4x6 cm, format JPG</em> <abbr title="Wajib">*</abbr>
+        </label>
+
+        <label for="pasfoto" class="photo-upload-box" id="photo-box" style="cursor: pointer; display: flex; justify-content: center; align-items: center;">
+          
+          <input type="file" id="pasfoto" accept=".jpg, .jpeg" class="hidden" required>
+
+          <img id="pasfoto-preview" alt="Preview pasfoto" class="hidden">
+          
+          <div class="upload-placeholder" id="upload-placeholder" style="text-align: center;">
+        <span class="camera-icon">📷</span>
+        <p>Klik untuk unggah foto</p>
+          </div>
+        </label>
+      </div>
+
+    </fieldset>
+
+    <!-- ── B. PENDIDIKAN ── -->
+    <fieldset class="form-section" id="sec-b">
+      <legend class="section-legend">
+        <span class="legend-letter">B</span>
+        Pendidikan Terakhir
+      </legend>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="jenjang">Jenjang <abbr title="Wajib">*</abbr></label>
+          <select id="jenjang" name="jenjang" required>
+            <option value="">— Pilih —</option>
+            <option>SMA</option><option>SMK</option>
+            <option>MA (Madrasah Aliyah)</option><option>Sederajat lainnya</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="jurusan">Jurusan / Program Keahlian <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="jurusan" name="jurusan" required>
+        </div>
+        <div class="field">
+          <label for="nama_sekolah">Nama Sekolah <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="nama_sekolah" name="nama_sekolah" required>
+        </div>
+        <div class="field">
+          <label for="kota_sekolah">Kota / Kabupaten Sekolah <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="kota_sekolah" name="kota_sekolah" required>
+        </div>
+        <div class="field field--w1">
+          <label for="tahun_lulus">Tahun Lulus <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="tahun_lulus" name="tahun_lulus" placeholder="2024" maxlength="4" inputmode="numeric" required>
+        </div>
+        <div class="field">
+          <label for="no_ijazah">Nomor Ijazah</label>
+          <input type="text" id="no_ijazah" name="no_ijazah" placeholder="opsional">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── C. PRODI & PT ── -->
+    <fieldset class="form-section" id="sec-c">
+      <legend class="section-legend">
+        <span class="legend-letter">C</span>
+        Program Studi &amp; Perguruan Tinggi
+      </legend>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="prodi">Program Studi <abbr title="Wajib">*</abbr></label>
+          <select id="prodi" name="prodi" required>
+            <option value="">— Pilih —</option>
+            <option>Teknik Sipil</option>
+            <option>Ekonomi</option>
+            <option>Akuntansi</option>
+            <option>Teknik Informatika / Komputer / Sistem Informasi</option>
+            <option>Komunikasi</option>
+            <option>Keselamatan Kerja</option>
+            <option>Bisnis Digital</option>
+            <option>Kewirausahaan</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="perguruan_tinggi">Perguruan Tinggi <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="perguruan_tinggi" name="perguruan_tinggi"
+                 placeholder="PT di wilayah Kab. Bogor" required>
+          <p class="field-note">Harus berlokasi di Kab. Bogor · Akreditasi min. B</p>
+        </div>
+        <div class="field field--span2">
+          <label for="alasan_prodi">Alasan Memilih Program Studi <abbr title="Wajib">*</abbr></label>
+          <textarea id="alasan_prodi" name="alasan_prodi" rows="3"
+                    placeholder="Jelaskan relevansi pilihan prodi dengan kebutuhan desa..." required></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- ── D. KELUARGA ── -->
+    <fieldset class="form-section" id="sec-d">
+      <legend class="section-legend">
+        <span class="legend-letter">D</span>
+        Data Keluarga
+      </legend>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="nama_ayah">Nama Ayah / Wali <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="nama_ayah" name="nama_ayah" required>
+        </div>
+        <div class="field">
+          <label for="pekerjaan_ayah">Pekerjaan Ayah / Wali</label>
+          <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah">
+        </div>
+        <div class="field">
+          <label for="nama_ibu">Nama Ibu <abbr title="Wajib">*</abbr></label>
+          <input type="text" id="nama_ibu" name="nama_ibu" required>
+        </div>
+        <div class="field">
+          <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+          <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu">
+        </div>
+        <div class="field">
+          <label for="penghasilan">Penghasilan Keluarga / Bulan <abbr title="Wajib">*</abbr></label>
+          <select id="penghasilan" name="penghasilan" required>
+            <option value="">— Pilih —</option>
+            <option>Di bawah Rp 1.000.000</option>
+            <option>Rp 1.000.000 – Rp 2.500.000</option>
+            <option>Rp 2.500.001 – Rp 5.000.000</option>
+            <option>Di atas Rp 5.000.000</option>
+          </select>
+        </div>
+        <div class="field field--w1">
+          <label for="jml_tanggungan">Jml. Tanggungan <abbr title="Wajib">*</abbr></label>
+          <input type="number" id="jml_tanggungan" name="jml_tanggungan" min="1" max="20" required>
+        </div>
+      </div>
+    </fieldset>
+      
+    <!-- untuk testing pdf -->
+    <div class="form-actions" style="margin-bottom: 10px;">
+      <button type="button" class="btn btn--outline" id="btn-test-pdf">
+      Preview PDF
+      </button>
+    </div>
+    <div id="preview-container" style="margin-top: 20px;">
+      <iframe id="pdf-preview" class="hidden" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px;"></iframe>
+    </div>
+
+    <!-- <div style="margin-top: 5px;">
+      <button type="button" id="btn-debug-test" style="background: #ff5722; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+        🛠️ Run Auto-Test (Data Dummy)
+      </button>
+    </div> -->
+
+  </div>
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="./js/pdf.js"></script>
+
+<script>
+// Variabel global untuk menampung data foto
+window.fotoBase64 = "";
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form-sssd');
+    const btnPreview = document.getElementById('btn-test-pdf');
+    const fileInput = document.getElementById('pasfoto');
+    const previewImg = document.getElementById('pasfoto-preview');
+    const placeholder = document.getElementById('upload-placeholder');
+
+    // --- 1. LOGIKA UPLOAD FOTO (WAJIB JPG & MAX 2MB) ---
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+
+            // Validasi Format JPG
+            const allowedTypes = ['image/jpeg', 'image/jpg'];
+            if (!allowedTypes.includes(file.type)) {
+                alert("Format file salah! Harap unggah foto dalam format JPG/JPEG.");
+                this.value = ""; 
+                return;
+            }
+
+            // Validasi Ukuran
+            if (file.size > 2 * 1024 * 1024) {
+                alert("Ukuran foto terlalu besar. Maksimal 2MB.");
+                this.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                window.fotoBase64 = e.target.result;
+                if (previewImg) {
+                    previewImg.src = window.fotoBase64;
+                    previewImg.classList.remove('hidden');
+                }
+                if (placeholder) placeholder.style.display = 'none';
+                console.log("Foto berhasil dimuat.");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // --- 2. LOGIKA TOMBOL PREVIEW (DENGAN VALIDASI KETAT) ---
+    if (btnPreview) {
+        btnPreview.onclick = function(e) {
+            e.preventDefault();
+
+            // STEP A: Cek validasi form HTML5 (atribut 'required')
+            if (!form.checkValidity()) {
+                form.reportValidity(); // Munculkan balon peringatan di field yang kosong
+                return; 
+            }
+
+            // STEP B: Cek apakah foto sudah diunggah (karena foto di luar validasi teks)
+            if (!window.fotoBase64) {
+                alert("Pendaftaran memerlukan pas foto. Silakan unggah foto Anda.");
+                fileInput.click(); // Otomatis buka jendela pilih file
+                return;
+            }
+
+            console.log("Validasi sukses. Membuat PDF...");
+
+            // STEP C: Ambil nilai murni tanpa Fallback (Tanpa teks default)
+            const getVal = (name) => {
+                const el = form.querySelector(`[name="${name}"]`);
+                return el ? el.value.trim() : ""; 
+            };
+
+            const dataFinal = {
+                nama_lengkap:      getVal('nama_lengkap'),
+                nik:               getVal('nik'),
+                no_kk:             getVal('no_kk'),
+                tempat_lahir:      getVal('tempat_lahir'),
+                tanggal_lahir:     getVal('tanggal_lahir'),
+                jenis_kelamin:     getVal('jenis_kelamin'),
+                agama:             getVal('agama'),
+                alamat:            getVal('alamat'),
+                rt:                getVal('rt'),
+                rw:                getVal('rw'),
+                dusun:             getVal('dusun'),
+                telepon:           getVal('telepon'),
+                email:             getVal('email'),
+                jenjang:           getVal('jenjang'),
+                jurusan:           getVal('jurusan'),
+                nama_sekolah:      getVal('nama_sekolah'),
+                kota_sekolah:      getVal('kota_sekolah'),
+                tahun_lulus:       getVal('tahun_lulus'),
+                no_ijazah:         getVal('no_ijazah'),
+                prodi:             getVal('prodi'),
+                perguruan_tinggi:  getVal('perguruan_tinggi'),
+                nama_ayah:         getVal('nama_ayah'),
+                pekerjaan_ayah:    getVal('pekerjaan_ayah'),
+                nama_ibu:          getVal('nama_ibu'),
+                pekerjaan_ibu:     getVal('pekerjaan_ibu'),
+                penghasilan:       getVal('penghasilan'),
+                jml_tanggungan:    getVal('jml_tanggungan'),
+                foto:              window.fotoBase64,
+                alasan_prodi:      getVal('alasan_prodi')
+            };
+
+            const nomorPreview = `PREVIEW-${Date.now()}`;
+
+            // STEP D: Panggil fungsi dari pdf.js
+            if (typeof generatePDF === 'function') {
+                try {
+                    // Berikan flag { preview: true } agar tampil di iframe
+                    generatePDF(dataFinal, nomorPreview, { preview: true });
+                    
+                    // Munculkan iframe jika sebelumnya tersembunyi
+                    const frame = document.getElementById('pdf-preview');
+                    if(frame) {
+                        frame.classList.remove('hidden');
+                        frame.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } catch (err) {
+                    console.error("Error PDF:", err);
+                    alert("Gagal merender PDF. Coba Isi form dengan benar");
+                }
+            } else {
+                alert("File pdf.js belum terhubung dengan benar.");
+            }
+        };
+    }
+});
+
+// --- 3. LOGIKA DEBUG/TESTING (DATA DUMMY) ---
+    const btnDebug = document.getElementById('btn-debug-test');
+    if (btnDebug) {
+        btnDebug.onclick = function() {
+            console.warn("Running Debug Test: Mengabaikan validasi...");
+
+            // Data dummy untuk simulasi cepat
+            const dummyData = {
+                nama_lengkap: "BUDI SANTOSO, S.T.",
+                nik: "3201012345678901",
+                no_kk: "3201019876543210",
+                tempat_lahir: "BOGOR",
+                tanggal_lahir: "2000-01-01",
+                jenis_kelamin: "Laki-laki",
+                agama: "Islam",
+                alamat: "Jl. Raya Gunungmenyan No. 123",
+                rt: "001",
+                rw: "005",
+                dusun: "Dusun II",
+                telepon: "081234567890",
+                email: "budi.dummy@example.com",
+                jenjang: "S1",
+                jurusan: "Teknik Informatika",
+                nama_sekolah: "SMAN 1 Pamijahan",
+                kota_sekolah: "Kab. Bogor",
+                tahun_lulus: "2018",
+                no_ijazah: "IJZ-12345678",
+                prodi: "Informatika",
+                perguruan_tinggi: "Universitas Indonesia",
+                nama_ayah: "AYAH BUDI",
+                pekerjaan_ayah: "Wiraswasta",
+                nama_ibu: "IBU BUDI",
+                pekerjaan_ibu: "Ibu Rumah Tangga",
+                penghasilan: "5000000",
+                jml_tanggungan: "3",
+                // Menggunakan foto yang sudah ada jika ada, jika tidak kosongkan
+                foto: window.fotoBase64 || "" ,
+                alasan_prodi: "Ingin mengembangkan aplikasi untuk membantu pertanian di desa."
+            };
+
+            const nomorTest = `TEST-DEBUG-${Date.now()}`;
+
+            if (typeof generatePDF === 'function') {
+                try {
+                    // Langsung panggil generatePDF tanpa cek form.checkValidity()
+                    generatePDF(dummyData, nomorTest, { preview: true });
+                    
+                    // Tampilkan iframe
+                    const frame = document.getElementById('pdf-preview');
+                    if(frame) {
+                        frame.classList.remove('hidden');
+                        frame.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    console.log("Debug PDF Berhasil di-generate.");
+                } catch (err) {
+                    console.error("Debug Error:", err);
+                }
+            }
+        };
+    }
+
+    // CARA MEMATIKAN: Cukup beri komentar (//) pada baris 'btnDebug.onclick' 
+    // atau hapus elemen tombolnya di HTML.
+  
+
+
+</script>
+
+</body>
+</html>
