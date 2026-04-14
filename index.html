@@ -365,23 +365,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 alasan_prodi:      getVal('alasan_prodi')
             };
 
-            const nomorPreview = `PREVIEW-${Date.now()}`;
-
             // STEP D: Panggil fungsi dari pdf.js
             if (typeof generatePDF === 'function') {
                 try {
-                    // Berikan flag { preview: true } agar tampil di iframe
-                    generatePDF(dataFinal, nomorPreview, { preview: true });
-                    
-                    // Munculkan iframe jika sebelumnya tersembunyi
-                    const frame = document.getElementById('pdf-preview');
-                    if(frame) {
-                        frame.classList.remove('hidden');
-                        frame.scrollIntoView({ behavior: 'smooth' });
+                    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+
+                    if (isMobile) {
+                        const pdfBlob = generatePDF(dataFinal, nomorPreview, { blob: true });
+                        const url = URL.createObjectURL(pdfBlob);
+                        window.open(url, '_blank');
+                    } else {
+                        // Desktop: tampil di iframe seperti biasa
+                        generatePDF(dataFinal, nomorPreview, { preview: true });
+
+                        const frame = document.getElementById('pdf-preview');
+                        if (frame) {
+                            frame.classList.remove('hidden');
+                            frame.scrollIntoView({ behavior: 'smooth' });
+                        }
                     }
                 } catch (err) {
                     console.error("Error PDF:", err);
-                    alert("Gagal merender PDF. Coba Isi form dengan benar");
+                    alert("Gagal merender PDF. Coba isi form dengan benar");
                 }
             } else {
                 alert("File pdf.js belum terhubung dengan benar.");
