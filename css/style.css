@@ -57,13 +57,10 @@ body {
   align-items: center;
   gap: 12px;
 }
-.logo-circle {
-  width: 40px; height: 40px;
-  background: rgba(255,255,255,.15);
-  border: 1.5px solid rgba(255,255,255,.3);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 600; letter-spacing: .5px;
+.logo-utama {
+  width: 40px;
+  height: 45px;
+  background: url('../../assets/logo-desa.png') center / contain no-repeat;
   flex-shrink: 0;
 }
 .header-logo strong {
