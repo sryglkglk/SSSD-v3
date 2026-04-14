@@ -312,19 +312,21 @@ doc.text(`Dicetak: ${new Date().toLocaleDateString('id-ID')}`, MR, y, { align: '
 // ── save / preview ──
   const safeName = (data.nama_lengkap || 'dokumen').replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
   
-  if (options.preview) {
-    // Mode Preview: Tampilkan di iframe
+if (options.preview) {
+    // Mode Preview: Tampilkan di iframe (desktop)
     const pdfData = doc.output('datauristring');
     const iframe = document.getElementById('pdf-preview');
     if (iframe) {
-      iframe.src = pdfData;
-      iframe.classList.remove('hidden');
+        iframe.src = pdfData;
+        iframe.classList.remove('hidden');
     }
-  } else {
+} else if (options.blob) {
+    // Mode Mobile: Return blob untuk dibuka di tab baru
+    return doc.output('blob');
+} else {
     // Mode Final: Langsung Download
     doc.save(`Formulir_SSSD_${safeName}.pdf`);
-  }
-} // <--- Pastikan hanya ada SATU kurung tutup untuk fungsi generatePDF
+}
 
 // ── util ──────────────────────────────────────────────────
 function formatDate(dateStr) {
