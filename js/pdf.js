@@ -164,7 +164,7 @@ y += 33;
 // ══════════════════════════════════════════════════════════
 rect(ML, y+3, CW, 28, 247, 250, 252, 197, 210, 225);
 doc.setFillColor(26, 58, 107);
-doc.roundedRect(ML, y, 38, 5.5, 1, 1, 'F');
+doc.roundedRect(ML, y, 35, 5.5, 1, 1, 'F');
 doc.setTextColor(255, 255, 255);
 doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
 doc.text('PENDIDIKAN TERAKHIR', ML + 2, y + 3.8);
