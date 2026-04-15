@@ -250,11 +250,11 @@
       <iframe id="pdf-preview" class="hidden" style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 8px;"></iframe>
     </div>
 
-    <!-- <div style="margin-top: 5px;">
+    <div style="margin-top: 5px;">
       <button type="button" id="btn-debug-test" style="background: #ff5722; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">
         🛠️ Run Auto-Test (Data Dummy)
       </button>
-    </div> -->
+    </div>
 
   </div>
 <!-- jsPDF CDN -->
@@ -376,14 +376,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         const url = URL.createObjectURL(pdfBlob);
                         window.open(url, '_blank');
                     } else {
-                        // Desktop: tampil di iframe seperti biasa
-                        generatePDF(dataFinal, nomorPreview, { preview: true });
+                        const pdfBlob = generatePDF(dataFinal, nomorPreview, { blob: true });
+                        const url = URL.createObjectURL(pdfBlob);
+                        window.open(url, '_blank');
 
-                        const frame = document.getElementById('pdf-preview');
-                        if (frame) {
-                            frame.classList.remove('hidden');
-                            frame.scrollIntoView({ behavior: 'smooth' });
-                        }
+                        // // Desktop: tampil di iframe seperti biasa
+                        // generatePDF(dataFinal, nomorPreview, { preview: true });
+
+                        // const frame = document.getElementById('pdf-preview');
+                        // if (frame) {
+                        //     frame.classList.remove('hidden');
+                        //     frame.scrollIntoView({ behavior: 'smooth' });
+                        // }
                     }
                 } catch (err) {
                     console.error("Error PDF:", err);

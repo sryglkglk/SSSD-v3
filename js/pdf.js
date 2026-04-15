@@ -298,6 +298,37 @@ boxes.forEach(b => {
 });
 
 y += bh + 6;
+// ══════════════════════════════════════════════════════════
+// CHECKLIST LAMPIRAN BERKAS
+// ══════════════════════════════════════════════════════════
+
+rect(ML, y, CW, 22, 247, 250, 252, 197, 210, 225);
+doc.setFillColor(26, 58, 107);
+doc.roundedRect(ML, y - 3, 34, 5.5, 1, 1, 'F');
+doc.setTextColor(255, 255, 255);
+doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
+doc.text('CHECKLIST LAMPIRAN', ML + 2, y + 0.8);
+
+const cy = y + 7;
+const attachments = [
+  'Fotokopi KTP',
+  'Fotokopi KK',
+  'Fotokopi Ijazah Terakhir'
+];
+
+doc.setFontSize(9);
+black();
+attachments.forEach((item, i) => {
+  // checkbox
+  doc.setDrawColor(100, 100, 110);
+  doc.setLineWidth(0.3);
+  doc.rect(ML + 2, cy + (i * 5.5) - 2, 3, 3);
+  // label
+  doc.setFont('helvetica', 'normal');
+  doc.text(item, ML + 8, cy + (i * 5.5));
+});
+
+y += 34;
 
 // ══════════════════════════════════════════════════════════
 // FOOTER HALAMAN
