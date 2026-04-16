@@ -37,9 +37,9 @@
   <form id="form-sssd">
 
     <!-- ── A. DATA DIRI ── -->
-    <fieldset class="form-section" id="sec-a">
+    <fieldset class="form-section" id="sec-a" style="margin-bottom: 5px;">
       <legend class="section-legend">
-        <span class="legend-letter">A</span>
+      <span class="legend-letter">A</span>
         Data Diri
       </legend>
 
@@ -239,6 +239,36 @@
         </div>
       </div>
     </fieldset>
+  
+  <!-- ── E. PERNYATAAN & KESEPAKATAN ── -->
+  <fieldset class="form-section" id="sec-e">
+    <legend class="section-legend">
+      <span class="legend-letter">E</span>
+      Pernyataan &amp; Kesepakatan
+    </legend>
+
+    <div class="statement-box" style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; line-height: 1.6;">
+      <p style="font-weight: 500; margin-bottom: 15px;">
+        Dengan ini menyatakan bersedia dan sanggup untuk:
+      </p>
+      <ol style="margin-left: 20px; margin-bottom: 15px;">
+        <li>Menempuh perkuliahan sesuai masa studi yang ditentukan perguruan tinggi.</li>
+        <li>Mengembalikan seluruh biaya pendidikan kepada Pemerintah Desa apabila tidak dapat menyelesaikan studi, mengundurkan diri, atau melampaui batas waktu studi.</li>
+        <li>Mengabdi kepada Desa Gunungmenyan selama 2 (dua) kali masa studi setelah lulus.</li>
+        <li>Mengganti biaya pendidikan apabila tidak melaksanakan kewajiban pengabdian.</li>
+        <li>Menanggung biaya-biaya di luar yang ditetapkan oleh Pemerintah Desa.</li>
+        <li>Menandatangani perjanjian kesepakatan dengan Pemerintah Desa dan perguruan tinggi.</li>
+        <li>Menaati seluruh tata tertib dan peraturan yang berlaku.</li>
+      </ol>
+    </div>
+
+    <div class="field" style="margin-bottom: 20px;">
+      <label class="checkbox-opt">
+        <input type="checkbox" id="persetujuan" name="persetujuan" required>
+        <span>Saya telah membaca dan menyetujui semua pernyataan dan kesepakatan di atas <abbr title="Wajib">*</abbr></span>
+      </label>
+    </div>
+  </fieldset>
       
     <!-- untuk testing pdf -->
     <div class="form-actions" style="margin-bottom: 10px;">

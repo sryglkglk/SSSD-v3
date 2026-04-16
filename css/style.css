@@ -181,6 +181,7 @@ body {
   border: 1px solid var(--border-2);
   border-radius: var(--radius);
   padding: 24px;
+  padding-top: 0%;
   margin-bottom: 16px;
   box-shadow: var(--shadow);
 }
